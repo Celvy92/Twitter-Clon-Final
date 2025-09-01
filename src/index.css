@@ -1,0 +1,106 @@
+/* ====== Paleta y base ====== */
+:root{
+  --bg:#f5f8fa;            /* fondo suave */
+  --card:#ffffff;          /* tarjetas */
+  --text:#0f1419;          /* texto principal */
+  --muted:#536471;         /* texto secundario */
+  --border:#e6ecf0;        /* bordes claros */
+  --primary:#1DA1F2;       /* azul twitter */
+  --shadow: 0 4px 20px rgba(0,0,0,.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root{
+    --bg:#0f1419;
+    --card:#15202b;
+    --text:#e6e6e6;
+    --muted:#8b98a5;
+    --border:#263340;
+    --primary:#1DA1F2;
+    --shadow: 0 6px 24px rgba(0,0,0,.35);
+  }
+}
+
+*{ box-sizing:border-box; }
+html,body,#root{ height:100%; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* ====== Layout centrado ====== */
+.wrapper{
+  min-height:100%;
+  display:flex;
+  justify-content:center;   /* centrado horizontal */
+}
+
+.container{
+  width:100%;
+  max-width: 680px;         /* columna centrada */
+  padding: 16px;
+}
+
+/* ====== Navbar ====== */
+.nav{
+  position: sticky;
+  top: 0;
+  backdrop-filter: saturate(180%) blur(8px);
+  background: color-mix(in oklab, var(--bg) 85%, transparent);
+  display:flex; align-items:center; gap:12px;
+  border-bottom:1px solid var(--border);
+  padding:12px 0; margin-bottom:16px;
+}
+
+.nav a{
+  text-decoration:none; color:var(--primary);
+  font-weight:600;
+}
+
+.nav .spacer{ margin-left:auto; display:flex; gap:10px; }
+
+.nav .btn{
+  border:none; padding:8px 14px; border-radius:999px;
+  cursor:pointer; font-weight:700;
+  background:var(--primary); color:#fff;
+  box-shadow: var(--shadow);
+}
+
+/* ====== Cards / inputs / botones ====== */
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px;
+  box-shadow: var(--shadow);
+}
+
+.list{ display:grid; gap:12px; }
+
+.input, .textarea{
+  width:100%;
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:10px 12px;
+  outline:none;
+  background:var(--card);
+  color:var(--text);
+}
+.textarea{ min-height:96px; resize:vertical; }
+
+.btn{
+  border:none; padding:10px 16px; border-radius:999px;
+  cursor:pointer; font-weight:700;
+}
+.btn-primary{ background:var(--primary); color:#fff; box-shadow: var(--shadow); }
+.btn-primary:disabled{ opacity:.65; cursor:not-allowed; }
+
+.help{ color:var(--muted); font-size:14px; }
+
+/* ====== Tweet item ====== */
+.tweet{
+  display:grid; gap:6px;
+}
+.tweet .author{ font-weight:700; }
