@@ -1,23 +1,35 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TweetBox from '../components/TweetBox';
+import Tweet from '../components/Tweet';
+import useAuth from '../hooks/useAuth';
+import { seedDemoTweets, readTweets, addTweet, toggleLike } from '../utils/tweetService';
 
 export default function Home() {
-  const [tweets, setTweets] = useState([
-    { id: 1, author: 'demo', text: 'Hola Twitter Clone 👋', createdAt: Date.now() }
-  ]);
+  const { user } = useAuth();
+  const [tweets, setTweets] = useState([]);
 
-  const addTweet = (text, author) => {
-    setTweets(t => [{ id: crypto.randomUUID(), author, text, createdAt: Date.now() }, ...t]);
+  useEffect(() => {
+    seedDemoTweets();
+    setTweets(readTweets());
+  }, []);
+
+  const handleAdd = (text) => {
+    const avatar = user?.avatar || 'https://i.pravatar.cc/64?u=anon';
+    const author = user?.username || 'anon';
+    const out = addTweet({ author, avatar, text });
+    setTweets(out);
+  };
+
+  const handleLike = (id) => {
+    const out = toggleLike(id);
+    setTweets(out);
   };
 
   return (
     <div className="list">
-      <TweetBox onTweet={addTweet} />
+      <TweetBox onTweet={handleAdd} />
       {tweets.map(t => (
-        <article key={t.id} className="card tweet">
-          <div className="author">@{t.author}</div>
-          <div>{t.text}</div>
-        </article>
+        <Tweet key={t.id} t={t} onLike={handleLike} />
       ))}
     </div>
   );

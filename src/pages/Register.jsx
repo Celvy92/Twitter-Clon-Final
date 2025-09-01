@@ -4,7 +4,7 @@ import useAuth from '../hooks/useAuth';
 
 export default function Register() {
   const { register, loading } = useAuth();
-  const [form, setForm] = useState({ username:'', email:'', password:'' });
+  const [form, setForm] = useState({ username:'', email:'', password:'', avatar:'' });
   const [err, setErr] = useState('');
   const navigate = useNavigate();
 
@@ -20,14 +20,15 @@ export default function Register() {
   };
 
   return (
-    <form onSubmit={onSubmit} style={{ display:'grid', gap:8 }}>
+    <form onSubmit={onSubmit} className="card" style={{ display:'grid', gap:8 }}>
       <h2>Crear cuenta</h2>
-      <input placeholder="Usuario" value={form.username} onChange={e=>setForm(f=>({...f, username:e.target.value}))}/>
-      <input placeholder="Email" value={form.email} onChange={e=>setForm(f=>({...f, email:e.target.value}))}/>
-      <input placeholder="Contraseña" type="password" value={form.password} onChange={e=>setForm(f=>({...f, password:e.target.value}))}/>
+      <input className="input" placeholder="Usuario (minúsculas)" value={form.username} onChange={e=>setForm(f=>({...f, username:e.target.value}))}/>
+      <input className="input" placeholder="Email" value={form.email} onChange={e=>setForm(f=>({...f, email:e.target.value}))}/>
+      <input className="input" placeholder="Contraseña" type="password" value={form.password} onChange={e=>setForm(f=>({...f, password:e.target.value}))}/>
+      <input className="input" placeholder="URL de avatar (opcional)" value={form.avatar} onChange={e=>setForm(f=>({...f, avatar:e.target.value}))}/>
       {err && <p style={{ color:'crimson' }}>{err}</p>}
-      <button disabled={loading}>{loading ? 'Creando...' : 'Registrarme'}</button>
-      <p>¿Ya tienes cuenta? <Link to="/login">Entrar</Link></p>
+      <button className="btn btn-primary" disabled={loading}>{loading ? 'Creando...' : 'Registrarme'}</button>
+      <p className="help">¿Ya tienes cuenta? <Link to="/login">Entrar</Link></p>
     </form>
   );
 }

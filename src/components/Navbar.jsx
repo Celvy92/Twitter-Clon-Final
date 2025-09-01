@@ -11,8 +11,11 @@ export default function Navbar() {
       <div className="spacer">
         {user ? (
           <>
-            <Link to="/profile">@{user.username}</Link>
-            <button className="btn" onClick={() => { logout(); navigate('/'); }}>
+            <Link to="/profile" style={{display:'flex',alignItems:'center',gap:8}}>
+              <img src={user.avatar || 'https://i.pravatar.cc/64?u=anon'} alt="@me" width="28" height="28" style={{borderRadius:'50%'}} />
+              @{user.username}
+            </Link>
+            <button className="btn btn-primary" onClick={() => { logout(); navigate('/'); }}>
               Salir
             </button>
           </>
